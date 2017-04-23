@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Blog";
+}
+
+<h2>Blog</h2>
+
+@foreach(var post in ViewBag.Posts)
+{
+    <p>@post.Title</p>
+}
+

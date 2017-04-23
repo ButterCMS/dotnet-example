@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,6 +9,11 @@ namespace ButterCmsExample.Controllers
 {
     public class HomeController : AppController
     {
+        public HomeController()
+        {
+
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -26,5 +32,13 @@ namespace ButterCmsExample.Controllers
 
             return View();
         }
+
+        public async Task<ActionResult> Blog()
+        {
+            var response = await Client.ListPostsAsync();
+            ViewBag.Posts = response.Data;
+            return View();
+        }
+
     }
 }
