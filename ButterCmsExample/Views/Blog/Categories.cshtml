@@ -1,0 +1,11 @@
+﻿@{ 
+    Page.Title = "Categories";
+}
+
+<h2>Categories</h2>
+
+@foreach (var category in ViewBag.Categories)
+{
+    <a href="/category/@Uri.EscapeDataString(category.Slug)">@category.Name</a>
+    <br/>
+}

@@ -1,0 +1,14 @@
+﻿@{ 
+    Page.Title = "Authors";
+}
+
+<h2>Authors</h2>
+
+@foreach (var author in ViewBag.Authors)
+{
+    <a href="/author/@Uri.EscapeDataString(author.Slug)">
+        <h3>@author.FirstName @author.LastName</h3>
+    </a>
+    <p>@author.Bio</p>
+}
+

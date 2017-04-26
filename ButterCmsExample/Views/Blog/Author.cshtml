@@ -1,0 +1,27 @@
+﻿@{ 
+    Page.Title = $"{ViewBag.Author.FirstName} {ViewBag.Author.LastName}";
+}
+
+<h2>@ViewBag.Author.FirstName @ViewBag.Author.LastName</h2>
+
+<h3>Bio</h3>
+<p>
+    @ViewBag.Author.Bio
+</p>
+
+<h3>Articles</h3>
+@foreach (var post in ViewBag.Posts)
+{
+    <a href="/blog/@Uri.EscapeDataString(post.Slug)">@post.Title</a>
+    <br/>
+}
+
+@if(ViewBag.PreviousPage != null)
+{
+    <a href="/author/@Uri.EscapeDataString(ViewBag.Author.Slug)/p/@ViewBag.PreviousPage">Prev</a>
+}
+
+@if(ViewBag.NextPage != null)
+{
+    <a href="/author/@Uri.EscapeDataString(ViewBag.Author.Slug)/p/@ViewBag.NextPage">Next</a>
+}

@@ -1,0 +1,11 @@
+﻿@{ 
+    Page.Title = "Tags";
+}
+
+<h2>Tags</h2>
+
+@foreach (var tag in ViewBag.Tags)
+{
+    <a href="/tag/@Uri.EscapeDataString(tag.Slug)">@tag.Name</a>
+    <br/>
+}

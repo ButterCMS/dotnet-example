@@ -1,0 +1,28 @@
+﻿@{ 
+    Page.Title = @ViewBag.Post.SeoTitle;
+    Page.MetaDescription = @ViewBag.Post.MetaDescription;
+}
+
+<h2>@ViewBag.Post.Title</h2>
+
+Published @ViewBag.Post.Published.ToString("d/M/yyyy")
+@if (@ViewBag.Post.Categories.Count > 0)
+{
+    @Html.Raw("in")
+}
+@foreach (var category in @ViewBag.Post.Categories)
+{
+    <a href="/category/@Uri.EscapeDataString(category.Slug)">@category.Name</a>
+}
+
+<br/>
+
+<a href="/author/@Uri.EscapeDataString(ViewBag.Post.Author.Slug)">
+    @ViewBag.Post.Author.FirstName @ViewBag.Post.Author.LastName
+</a>
+
+<br/>
+
+<div>
+    @Html.Raw(ViewBag.Post.Body)
+</div>

@@ -1,0 +1,25 @@
+﻿@{ 
+    Page.Title = "Category";
+}
+
+<h2>@ViewBag.Category.Name</h2>
+
+@foreach (var post in ViewBag.Posts)
+{
+    <a href="/blog/@Uri.EscapeDataString(post.Slug)">@post.Title</a>
+    @Html.Raw("by")
+    <a href="/author/@Uri.EscapeDataString(post.Author.Slug)">
+        @post.Author.FirstName @post.Author.LastName
+    </a>
+    <br/>
+}
+
+@if(ViewBag.PreviousPage != null)
+{
+    <a href="/category/@Uri.EscapeDataString(ViewBag.Category.Slug)/p/@ViewBag.PreviousPage">Prev</a>
+}
+
+@if(ViewBag.NextPage != null)
+{
+    <a href="/category/@Uri.EscapeDataString(ViewBag.Category.Slug)/p/@ViewBag.NextPage">Next</a>
+}
