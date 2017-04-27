@@ -1,10 +1,12 @@
 ﻿using ButterCMS;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 
 namespace ButterCmsExample.Controllers
 {
@@ -102,8 +104,50 @@ namespace ButterCmsExample.Controllers
             return View("Tag");
         }
 
+        [Route("feeds/rss")]
+        public async Task<ActionResult> ShowRss()
+        {
+            var xmlDoc = await Client.GetRSSFeedAsync();
+            using (var sw = new StringWriter())
+            {
+                using (var xw = XmlWriter.Create(sw))
+                {
+                    xmlDoc.WriteTo(xw);
+                    xw.Flush();
+                    return Content(sw.GetStringBuilder().ToString(), "text/xml");
+                }
+            }
+        }
 
+        [Route("feeds/atom")]
+        public async Task<ActionResult> ShowAtom()
+        {
+            var xmlDoc = await Client.GetAtomFeedAsync();
+            using (var sw = new StringWriter())
+            {
+                using (var xw = XmlWriter.Create(sw))
+                {
+                    xmlDoc.WriteTo(xw);
+                    xw.Flush();
+                    return Content(sw.GetStringBuilder().ToString(), "text/xml");
+                }
+            }
+        }
 
+        [Route("sitemap")]
+        public async Task<ActionResult> ShowSitemap()
+        {
+            var xmlDoc = await Client.GetSitemapAsync();
+            using (var sw = new StringWriter())
+            {
+                using (var xw = XmlWriter.Create(sw))
+                {
+                    xmlDoc.WriteTo(xw);
+                    xw.Flush();
+                    return Content(sw.GetStringBuilder().ToString(), "text/xml");
+                }
+            }
+        }
 
     }
 }
