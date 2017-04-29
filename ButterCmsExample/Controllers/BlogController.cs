@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ButterCmsExample.Controllers
 {
@@ -14,7 +16,7 @@ namespace ButterCmsExample.Controllers
     {
         private ButterCMSClient Client;
 
-        private static string _apiToken = "b60a008584313ed21803780bc9208557b3b49fbb";
+        private static string _apiToken = "de55d3f93789d4c5c26fb07445b680e8bca843bd";
 
         public BlogController()
         {
@@ -102,6 +104,39 @@ namespace ButterCmsExample.Controllers
             ViewBag.NextPage = postsResponse.Meta.NextPage;
             ViewBag.PreviousPage = postsResponse.Meta.PreviousPage;
             return View("Tag");
+        }
+
+        [Route("faq")]
+        public async Task<ActionResult> ShowFaq()
+        {
+            var json = await Client.RetrieveContentFieldsJSONAsync(new[] {
+                "faq_headline",
+                "faq_items"
+            });
+            dynamic faq = JsonConvert.DeserializeObject(json);
+            ViewBag.FaqHeadline = faq.data.faq_headline;
+            ViewBag.FaqItems = faq.data.faq_items;
+            return View("Faq");
+        }
+
+        [Route("locations")]
+        public ActionResult ListAllLocations()
+        {
+            return View("Locations");
+        }
+
+        [Route("location/{slug}")]
+        public async Task<ActionResult> ShowLocation(string slug)
+        {
+            var json = await Client.RetrieveContentFieldsJSONAsync(new[]
+            {
+                $"location_pages[slug={slug}]"
+            });
+            dynamic page = ((dynamic)JsonConvert.DeserializeObject(json)).data.location_pages[0];
+            ViewBag.FeatureImage = page.feature_image; 
+            ViewBag.Name = page.name; 
+            ViewBag.Description = page.description; 
+            return View("Location");
         }
 
         [Route("feeds/rss")]

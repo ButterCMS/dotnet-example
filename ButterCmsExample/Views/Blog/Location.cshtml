@@ -1,0 +1,11 @@
+﻿@{ 
+    Page.Title = ViewBag.Name;
+}
+
+<h2>Widget Store - @ViewBag.Name</h2>
+
+<img src="@ViewBag.FeatureImage" />
+<br />
+
+@Html.Raw(ViewBag.Description)
+

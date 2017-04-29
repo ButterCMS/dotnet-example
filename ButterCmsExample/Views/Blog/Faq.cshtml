@@ -1,0 +1,12 @@
+﻿@{
+    Page.Title = ViewBag.FaqHeadline;
+}
+
+<h2>@ViewBag.FaqHeadline</h2>
+
+@foreach (var item in ViewBag.FaqItems)
+{
+    <h4>@item.question</h4>
+    <p>@Html.Raw(item.answer)</p>
+}
+
