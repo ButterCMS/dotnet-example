@@ -1,14 +1,10 @@
 ﻿using ButterCMS;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace ButterCmsExample.Controllers
 {
@@ -20,6 +16,7 @@ namespace ButterCmsExample.Controllers
 
         public BlogController()
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             Client = new ButterCMSClient(_apiToken);
         }
 
